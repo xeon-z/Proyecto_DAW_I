@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	
+	<div class="container">
+		<h1 class="text-primary border border-danger border-top-0 "
+			th:text="${titulo}"></h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Email</th>
+					<th>Password</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user: ${usuarios}">
+					<td th:text="${user.Id}"></td>
+					<td th:text="${user.nombres}"></td>
+					<td th:text="${user.apellidos}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.password}"></td>
+					<td><a class="btn btn-success btn-xs"
+						th:href="@{/form/} + ${user.Id}" th:text="'Editar'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/eliminar/} + ${user.Id}" th:text="'Eliminar'"></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:replace="paginator-nav :: paginator"></div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

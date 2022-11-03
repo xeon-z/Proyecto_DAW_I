@@ -1,0 +1,20 @@
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0001', 'Ion', 'Yuparty', 'juan@gmail.com', 'koneko123');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0002', 'Mili', 'Boo', 'miliboo@gmail.com', 'mili2710');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0003', 'Enzo', 'Robles', 'enzo_robles@gmail.com', 'enzo456');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0004', 'Diego', 'Ricaldi', 'diegoRicaldi@gmail.com', 'diego_486');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0005', 'admin', ' ', 'admin@gmail.com', 'admin');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0006', 'Jose', 'Fernadez', 'jsofer@gmail.com', 'jose123');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0007', 'Marco', 'Antonio', 'marcoantonio2022@gmail.com', 'marquitos1');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0008', 'Cesar', 'Roquel', 'cesarq@gmail.com', 'cesar2022');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0009', 'Ramon', 'Castro', 'ramoncastro23@gmail.com', 'ramoncito1');
+INSERT INTO tb_usuario (Id, nom_usuario, ape_usuario, email_usuario, password) VALUES('U0010', 'Juan', 'Castillo', 'juancito@gmail.com', 'juancastillo111');
+
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(1, 'El Huerto de mi Amada', 'Alfredo Bryce Echenique', 'Comedia Romántica', 5);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(2, 'Don Quijote de la Mancha', 'Miguel de Cervantes', 'Parodia, Satira', 9);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(3, 'La casa de los espíritus', 'Isabel Allende', 'Realismo mágico', 4);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(4, 'La metamorfosis', 'Franz Kafka', 'Literatura fantástica, Absurdo', 7);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(5, 'La Odisea', 'Homero', 'Epopeya, Épico', 6);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(6, 'La regenta', 'Leopoldo Alas', 'Ficción', 16);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(7, 'Madame Bovary', 'Gustave Flaubert', ' Sátira, Ficción', 2);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(8, 'La colmena', 'Camilo José Cela', 'Literatura fantástica, Absurdo', 7);
+INSERT INTO tb_libro (id, titulo, autor, categoria, stock) VALUES(9, 'Los viajes de Gulliver', 'Jonathan Swift', 'Sátira, Ficción', 9);

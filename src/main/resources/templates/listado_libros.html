@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<h1 class="text-primary border border-danger border-top-0 "
+			th:text="${titulo}"></h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Titulo</th>
+					<th>Autor</th>
+					<th>Categoria</th>
+					<th>Stock</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="libro: ${libros}">
+					<td th:text="${libro.id}"></td>
+					<td th:text="${libro.titulo}"></td>
+					<td th:text="${libro.autor}"></td>
+					<td th:text="${libro.categoria}"></td>
+					<td th:text="${libro.stock}"></td>					 
+					<td><a class="btn btn-success btn-xs"
+						th:href="@{/form/} + ${libro.id}" th:text="'Editar'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/eliminar/} + ${libro.id}" th:text="'Eliminar'"></a></td>					
+				</tr>
+			</tbody>
+		</table>
+		<div th:replace="paginator-nav :: paginator"></div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
