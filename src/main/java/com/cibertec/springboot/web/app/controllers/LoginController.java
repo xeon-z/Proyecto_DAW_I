@@ -8,6 +8,6 @@ public class LoginController {
 
 	@GetMapping
 	public String login() {
-		return "Hola Mundo";
+		return "Hello World";
 	}
 }
