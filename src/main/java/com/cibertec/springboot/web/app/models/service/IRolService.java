@@ -8,4 +8,5 @@ public interface IRolService {
 
 	public List<Rol> findAll();
 	
+	public Rol findOne(int id);
 }

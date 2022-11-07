@@ -11,8 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "empleado")
@@ -22,27 +26,37 @@ public class Empleado implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_emp")
 	private int id;
+	
 	@Column(name = "nom_emp")
 	@NotEmpty(message = "Campo obligatorio")
 	private String nombre;
+	
 	@Column(name = "ape_emp")
 	@NotEmpty(message = "Campo obligatorio")
 	private String apellido;
+	
 	@Column(name = "cel_emp")
 	@NotEmpty(message = "Campo obligatorio")
 	private String celular;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fec_contrato")
 	@NotNull(message = "Campo obligatorio")
 	private Date fecContrato;
+	
 	@Column(name = "cargo_emp")
 	@NotEmpty(message = "Campo obligatorio")
 	private String cargo;
+	
 	@Column(name = "suel_emp")
 	@NotNull(message = "Campo obligatorio")
 	private double sueldo;
+	
 	@Column(name = "cor_emp")
 	@NotEmpty(message = "Campo obligatorio")
 	private String correo;
+	
 	@OneToOne
 	@JoinColumn(name = "id_usu")
 	@NotNull(message = "Campo obligatorio")
@@ -118,6 +132,13 @@ public class Empleado implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	@Override
+	public String toString() {
+		return "Empleado [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", celular=" + celular
+				+ ", fecContrato=" + fecContrato + ", cargo=" + cargo + ", sueldo=" + sueldo + ", correo=" + correo
+				+ ", usuario=" + usuario + "]";
 	}
 
 	private static final long serialVersionUID = 1L;

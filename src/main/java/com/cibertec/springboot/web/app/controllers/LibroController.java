@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cibertec.springboot.web.app.models.entity.Libro;
@@ -23,7 +24,7 @@ import com.cibertec.springboot.web.app.models.service.ILibroService;
 import com.cibertec.springboot.web.app.util.paginator.PageRender;
 
 @Controller
-@SessionAttributes("libro")
+@SessionAttributes(names = {"libro", "empleado"})
 @RequestMapping(value="/libro")
 public class LibroController {
 
@@ -34,7 +35,7 @@ public class LibroController {
 	private ICategoriaService categoriaService;
 	
 	@RequestMapping(value="/listado", method = RequestMethod.GET)
-	public String listadoLibros(@RequestParam(name="page", defaultValue = "0") 
+	public String listado(@RequestParam(name="page", defaultValue = "0") 
 	int page, Model modeloListado) {
 		Pageable pageRequest = PageRequest.of(page, 5);
 		Page<Libro> libros = libroService.findAll(pageRequest);
@@ -43,6 +44,8 @@ public class LibroController {
 		modeloListado.addAttribute("titulo", "Listado de Libros");
 		modeloListado.addAttribute("libros", libros);
 		modeloListado.addAttribute("page", pageRender);
+		
+		System.out.println(modeloListado.getAttribute("empleado"));
 		return "libro/listado";
 	}
 	
@@ -55,7 +58,8 @@ public class LibroController {
 	}
 	
 	@RequestMapping(value = "/guardar", method = RequestMethod.POST)
-	public String guardar(Model model, @Valid @ModelAttribute Libro libro, BindingResult result, RedirectAttributes attributes) {
+	public String guardar(Model model, @Valid @ModelAttribute Libro libro, BindingResult result,
+			SessionStatus status, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Libro");
 			model.addAttribute("categorias", categoriaService.findAll());
@@ -63,6 +67,7 @@ public class LibroController {
 		}
 		
 		libroService.save(libro);
+		status.setComplete();
 		attributes.addFlashAttribute("success", "Libro guardado correctamente.");
 		return "redirect:/libro/listado";
 	}

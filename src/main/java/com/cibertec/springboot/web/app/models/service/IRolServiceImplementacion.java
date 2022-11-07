@@ -19,4 +19,9 @@ public class IRolServiceImplementacion implements IRolService {
 		return rolRepository.findAll();
 	}
 
+	@Override
+	public Rol findOne(int id) {
+		return rolRepository.findById(id).orElse(null);
+	}
+
 }
