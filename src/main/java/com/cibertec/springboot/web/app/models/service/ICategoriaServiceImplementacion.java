@@ -10,7 +10,7 @@ import com.cibertec.springboot.web.app.models.DAO.CategoriaRepository;
 import com.cibertec.springboot.web.app.models.entity.Categoria;
 
 @Service
-public class ICategoriaImplementacion implements ICategoriaService {
+public class ICategoriaServiceImplementacion implements ICategoriaService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepo;

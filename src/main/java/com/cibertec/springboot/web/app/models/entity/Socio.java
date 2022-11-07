@@ -1,7 +1,8 @@
 package com.cibertec.springboot.web.app.models.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,34 +16,35 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "empleado")
-public class Empleado implements Serializable {
+@Table(name = "socio")
+public class Socio implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_emp")
+	@Column(name = "id_soc")
 	private int id;
-	@Column(name = "nom_emp")
+	@Column(name = "nom_soc")
 	@NotEmpty(message = "Campo obligatorio")
 	private String nombre;
-	@Column(name = "ape_emp")
+	@Column(name = "ape_soc")
 	@NotEmpty(message = "Campo obligatorio")
 	private String apellido;
-	@Column(name = "cel_emp")
+	@Column(name = "dni_soc")
+	@NotEmpty(message = "Campo obligatorio")
+	private String dni;
+	@Column(name = "fec_nac")
+	@NotNull(message = "Campo obligatorio")
+	private Date fecNacimiento;
+	@Column(name = "fec_reg")
+	private Timestamp fecRegistro;
+	@Column(name = "cel_soc")
 	@NotEmpty(message = "Campo obligatorio")
 	private String celular;
-	@Column(name = "fec_contrato")
-	@NotNull(message = "Campo obligatorio")
-	private Date fecContrato;
-	@Column(name = "cargo_emp")
-	@NotEmpty(message = "Campo obligatorio")
-	private String cargo;
-	@Column(name = "suel_emp")
-	@NotNull(message = "Campo obligatorio")
-	private double sueldo;
-	@Column(name = "cor_emp")
+	@Column(name = "cor_soc")
 	@NotEmpty(message = "Campo obligatorio")
 	private String correo;
+	@Column(name = "deuda")
+	private double deuda;
 	@OneToOne
 	@JoinColumn(name = "id_usu")
 	@NotNull(message = "Campo obligatorio")
@@ -72,6 +74,30 @@ public class Empleado implements Serializable {
 		this.apellido = apellido;
 	}
 
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public Date getFecNacimiento() {
+		return fecNacimiento;
+	}
+
+	public void setFecNacimiento(Date fecNacimiento) {
+		this.fecNacimiento = fecNacimiento;
+	}
+
+	public Timestamp getFecRegistro() {
+		return fecRegistro;
+	}
+
+	public void setFecRegistro(Timestamp fecRegistro) {
+		this.fecRegistro = fecRegistro;
+	}
+
 	public String getCelular() {
 		return celular;
 	}
@@ -80,36 +106,20 @@ public class Empleado implements Serializable {
 		this.celular = celular;
 	}
 
-	public Date getFecContrato() {
-		return fecContrato;
-	}
-
-	public void setFecContrato(Date fecContrato) {
-		this.fecContrato = fecContrato;
-	}
-
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-
-	public double getSueldo() {
-		return sueldo;
-	}
-
-	public void setSueldo(double sueldo) {
-		this.sueldo = sueldo;
-	}
-
 	public String getCorreo() {
 		return correo;
 	}
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+
+	public double getDeuda() {
+		return deuda;
+	}
+
+	public void setDeuda(double deuda) {
+		this.deuda = deuda;
 	}
 
 	public Usuario getUsuario() {
@@ -121,4 +131,5 @@ public class Empleado implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
+
 }

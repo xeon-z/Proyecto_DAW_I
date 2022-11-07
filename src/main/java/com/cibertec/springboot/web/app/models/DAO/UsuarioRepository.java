@@ -1,11 +1,10 @@
 package com.cibertec.springboot.web.app.models.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
 import com.cibertec.springboot.web.app.models.entity.Usuario;
 
-@Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, String> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	
 	Usuario findByEmail(String email);
 }

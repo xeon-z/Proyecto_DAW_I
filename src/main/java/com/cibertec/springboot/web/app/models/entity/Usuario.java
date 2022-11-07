@@ -4,54 +4,84 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="tb_usuario")
-public class Usuario implements Serializable{
-	
+@Table(name = "usuario")
+public class Usuario implements Serializable {
+
 	@Id
-	private String Id;
-	@Column(name="nom_usuario")
-	private String nombres;
-	@Column(name="ape_usuario")
-	private String apellidos;
-	@Column(name="email_usuario")
-	private String email;
-	@Column(name="password")
-	private String password;
-	
-	public String getId() {
-		return Id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usu")
+	private int id;
+	@ManyToOne
+	@JoinColumn(name = "id_rol")
+	@NotNull(message = "Campo obligatorio")
+	private Rol rol;
+	@Column(name = "nom_usu")
+	@NotNull(message = "Campo obligatorio")
+	private String nombre;
+	@Column(name = "cont_usu")
+	@NotNull(message = "Campo obligatorio")
+	private String contraseña;
+	@Column(name = "intentos")
+	private int intentos;
+	@Column(name = "estado")
+	private String estado;
+
+	public int getId() {
+		return id;
 	}
-	public void setId(String id) {
-		Id = id;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getNombres() {
-		return nombres;
+
+	public Rol getRol() {
+		return rol;
 	}
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
-	public String getApellidos() {
-		return apellidos;
+
+	public String getNombre() {
+		return nombre;
 	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public String getEmail() {
-		return email;
+
+	public String getContraseña() {
+		return contraseña;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
-	public String getPassword() {
-		return password;
+
+	public int getIntentos() {
+		return intentos;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setIntentos(int intentos) {
+		this.intentos = intentos;
 	}
-	
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	private static final long serialVersionUID = 1L;
 }

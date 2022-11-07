@@ -15,37 +15,37 @@ import com.cibertec.springboot.web.app.models.entity.Libro;
 public class ILibroServiceImplementacion implements ILibroService {
 
 	@Autowired
-	private LibroRepository libroDao;	
+	private LibroRepository libroRepository;	
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Libro> findAll() {
-		return (List<Libro>) libroDao.findAll();
+		return libroRepository.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Libro> findAll(Pageable pageable) {
-		return libroDao.findAll(pageable);
+		return libroRepository.findAll(pageable);
 	}
 
 	@Override
 	@Transactional
 	public void save(Libro libro) {
-		libroDao.save(libro);
+		libroRepository.save(libro);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Libro findOne(Long id) {
-		return libroDao.findById(id).orElse(null);		
+		return libroRepository.findById(id).orElse(null);		
 	}
 
 	@Override
 	@Transactional
 	public void prestarLibro(Libro libro) {
 		libro.setStock(libro.getStock()-1);
-		libroDao.save(libro);
+		libroRepository.save(libro);
 	}
 
 	

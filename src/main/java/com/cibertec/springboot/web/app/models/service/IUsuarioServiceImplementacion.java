@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cibertec.springboot.web.app.models.DAO.IUsuarioDAO;
 import com.cibertec.springboot.web.app.models.DAO.UsuarioRepository;
 import com.cibertec.springboot.web.app.models.entity.Usuario;
 
@@ -16,39 +15,36 @@ import com.cibertec.springboot.web.app.models.entity.Usuario;
 public class IUsuarioServiceImplementacion implements IUsuarioService {
 
 	@Autowired
-	private IUsuarioDAO usuarioDao;
-	
-	@Autowired
-	private UsuarioRepository userRepo;
+	private UsuarioRepository usuarioRepository;
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Usuario> findAll() {
-		return (List<Usuario>) usuarioDao.findAll();
+		return usuarioRepository.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Usuario> findAll(Pageable pageable) {
-		return usuarioDao.findAll(pageable);
+		return usuarioRepository.findAll(pageable);
 	}
 
 	@Override
 	@Transactional
 	public void save(Usuario usuario) {
-		usuarioDao.save(usuario);
+		usuarioRepository.save(usuario);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario findOne(String Id) {
-		return usuarioDao.findById(Id).orElse(null);
+	public Usuario findOne(int Id) {
+		return usuarioRepository.findById(Id).orElse(null);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario findByEmail(String email) {		
-		return userRepo.findByEmail(email) ;
+		return usuarioRepository.findByEmail(email) ;
 	}
 
 }

@@ -14,7 +14,7 @@ public interface IUsuarioService {
 	
 	public void save(Usuario usuario);
 	
-	public Usuario findOne(String Id);
+	public Usuario findOne(int Id);
 	
 	public Usuario findByEmail(String email);
 }
