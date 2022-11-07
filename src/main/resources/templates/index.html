@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
 <body>
-
-<p>Ingreso exitoso :B </p>
-
+	<header th:replace="layout/layout :: header"></header>			
+	<div class="container">
+		<h1 align="center" class=" border border-danger border-top-0 " th:text="${titulo} + ${Usuario} "></h1>		
+		<table class="table table-striped">
+			<thead>
+				<tr align="center">
+					<th>Mis Préstamos</th>
+					<th>Listado de Libros</th>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr align="center">
+					<td class="col-sm"><a class="btn btn-success col-sm-5" th:text="'Ver'"></a></td>
+					<td class="col-sm"><a class="btn btn-success col-sm-5" th:text="'Buscar'" th:href="@{/libro/listado}"></a></td>					
+				</tr>
+			</tbody>
+		</table>		
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
 </body>
-
 </html>

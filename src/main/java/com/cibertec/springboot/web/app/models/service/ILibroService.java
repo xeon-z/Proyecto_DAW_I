@@ -14,4 +14,6 @@ public interface ILibroService {
 	public void save(Libro libro);
 	
 	public Libro findOne(Long id);
+	
+	public void prestarLibro(Libro libro);
 }

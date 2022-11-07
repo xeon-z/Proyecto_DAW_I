@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.cibertec.springboot.web.app.models.DAO.ILibroDAO;
+import com.cibertec.springboot.web.app.models.DAO.LibroRepository;
 import com.cibertec.springboot.web.app.models.entity.Libro;
 
 
@@ -15,7 +15,7 @@ import com.cibertec.springboot.web.app.models.entity.Libro;
 public class ILibroServiceImplementacion implements ILibroService {
 
 	@Autowired
-	private ILibroDAO libroDao;	
+	private LibroRepository libroDao;	
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -41,4 +41,12 @@ public class ILibroServiceImplementacion implements ILibroService {
 		return libroDao.findById(id).orElse(null);		
 	}
 
+	@Override
+	@Transactional
+	public void prestarLibro(Libro libro) {
+		libro.setStock(libro.getStock()-1);
+		libroDao.save(libro);
+	}
+
+	
 }

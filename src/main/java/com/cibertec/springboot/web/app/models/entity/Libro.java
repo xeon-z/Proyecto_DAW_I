@@ -2,20 +2,41 @@ package com.cibertec.springboot.web.app.models.entity;
 
 import java.io.Serializable;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="tb_libro")
+@Table(name="libro")
 public class Libro implements Serializable {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_lib")
 	private Long id;
+	@NotEmpty(message = "Campo obligatorio")
+	@Column(name="titulo_lib")
 	private String titulo;
-	private String autor;
-	private String categoria;
+	@NotEmpty(message = "Campo obligatorio")
+	@Column(name="autor_lib")
+	private String autor;	
+	@NotNull(message = "Campo obligatorio")
+	@Column(name="año_lib")
+	private int anio;
+	@NotNull(message = "Campo obligatorio")
+	@ManyToOne
+	@JoinColumn(name="id_cat")
+	private Categoria categoria;
+	@NotNull(message = "Campo obligatorio")
+	@Column(name="stk_lib")
 	private int stock;
 
 	public Long getId() {
@@ -36,10 +57,17 @@ public class Libro implements Serializable {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-	public String getCategoria() {
+	
+	public int getAnio() {
+		return anio;
+	}
+	public void setAnio(int anio) {
+		this.anio = anio;
+	}
+	public Categoria getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	public int getStock() {
