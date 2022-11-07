@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cibertec.springboot.web.app.models.entity.Usuario;
-import com.cibertec.springboot.web.app.models.service.ILibroService;
 import com.cibertec.springboot.web.app.models.service.IUsuarioService;
 import com.cibertec.springboot.web.app.util.paginator.PageRender;
 
@@ -27,24 +26,28 @@ public class UserController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	
-	@Autowired
-	private ILibroService libroService;	
-	
 	@GetMapping({"/", "", "/login"})
 	public String login() {		
 		return "login";
 	}
 	
+	@RequestMapping(value="/index")
+	public String index(Model modeloUser, HttpSession session) {
+		modeloUser.addAttribute("titulo", "Bienvenido a Biblos");
+		modeloUser.addAttribute("Usuario", "");		
+		return "index";
+	}
+	
 	@RequestMapping(value="/index", method = RequestMethod.POST)
-	public String index(@RequestParam(name="user", defaultValue = "") String email
+	public String index(@RequestParam(name="user", defaultValue = "") String nombre
 			, Model modeloUser, 
 			HttpSession session) {
-		Usuario us = usuarioService.findByEmail(email);
+		Usuario us = usuarioService.findByNombre(nombre);
 		
 		modeloUser.addAttribute("titulo", "Bienvenido a Biblos, ");
 		
 		session.setAttribute("usuario", us);
-		modeloUser.addAttribute("Usuario", email);		
+		modeloUser.addAttribute("Usuario", nombre);		
 		return "index";
 	}
 	

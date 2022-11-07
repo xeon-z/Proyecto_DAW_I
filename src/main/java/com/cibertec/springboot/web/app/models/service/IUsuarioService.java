@@ -16,5 +16,5 @@ public interface IUsuarioService {
 	
 	public Usuario findOne(int Id);
 	
-	public Usuario findByEmail(String email);
+	public Usuario findByNombre(String nombre);
 }

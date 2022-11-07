@@ -43,8 +43,8 @@ public class IUsuarioServiceImplementacion implements IUsuarioService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario findByEmail(String email) {		
-		return usuarioRepository.findByEmail(email) ;
+	public Usuario findByNombre(String nombre) {		
+		return usuarioRepository.findByNombre(nombre) ;
 	}
 
 }

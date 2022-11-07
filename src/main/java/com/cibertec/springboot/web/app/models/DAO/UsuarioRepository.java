@@ -6,5 +6,5 @@ import com.cibertec.springboot.web.app.models.entity.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	
-	Usuario findByEmail(String email);
+	Usuario findByNombre(String nombre);
 }

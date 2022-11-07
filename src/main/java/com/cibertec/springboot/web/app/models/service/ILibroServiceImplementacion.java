@@ -42,11 +42,17 @@ public class ILibroServiceImplementacion implements ILibroService {
 	}
 
 	@Override
+	public void delete(Long id) {
+		libroRepository.deleteById(id);
+	}
+	
+	@Override
 	@Transactional
 	public void prestarLibro(Libro libro) {
 		libro.setStock(libro.getStock()-1);
 		libroRepository.save(libro);
 	}
+
 
 	
 }

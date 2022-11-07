@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -28,6 +29,7 @@ public class Libro implements Serializable {
 	@Column(name="autor_lib")
 	private String autor;	
 	@NotNull(message = "Campo obligatorio")
+	@Min(value = 0, message = "Debe ser mayor a 0")
 	@Column(name="año_lib")
 	private int anio;
 	@NotNull(message = "Campo obligatorio")
@@ -35,6 +37,7 @@ public class Libro implements Serializable {
 	@JoinColumn(name="id_cat")
 	private Categoria categoria;
 	@NotNull(message = "Campo obligatorio")
+	@Min(value = 0, message = "El valor mínimo es 0")
 	@Column(name="stk_lib")
 	private int stock;
 
