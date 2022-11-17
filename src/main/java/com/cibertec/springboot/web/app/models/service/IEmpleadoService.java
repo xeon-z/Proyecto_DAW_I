@@ -19,4 +19,6 @@ public interface IEmpleadoService {
 	
 	public void delete(int id);
 	
+	public Empleado findByUsuario(String usuario);
+	
 }

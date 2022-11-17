@@ -3,6 +3,7 @@ package com.cibertec.springboot.web.app.models.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -57,7 +58,7 @@ public class Empleado implements Serializable {
 	@NotEmpty(message = "Campo obligatorio")
 	private String correo;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usu")
 	@NotNull(message = "Campo obligatorio")
 	private Usuario usuario;

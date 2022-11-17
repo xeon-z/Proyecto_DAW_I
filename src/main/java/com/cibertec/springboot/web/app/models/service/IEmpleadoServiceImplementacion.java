@@ -41,4 +41,9 @@ public class IEmpleadoServiceImplementacion implements IEmpleadoService {
 		empleadoRepository.deleteById(id);
 	}
 
+	@Override
+	public Empleado findByUsuario(String usuario) {
+		return empleadoRepository.findByUsuario(usuario);
+	}
+
 }

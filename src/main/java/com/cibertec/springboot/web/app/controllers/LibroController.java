@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,7 +37,7 @@ public class LibroController {
 	
 	@RequestMapping(value="/listado", method = RequestMethod.GET)
 	public String listado(@RequestParam(name="page", defaultValue = "0") 
-	int page, Model modeloListado) {
+	int page, Model modeloListado, Authentication authentication) {
 		Pageable pageRequest = PageRequest.of(page, 5);
 		Page<Libro> libros = libroService.findAll(pageRequest);
 		PageRender<Libro> pageRender = new PageRender<>("/libro/listado", libros);

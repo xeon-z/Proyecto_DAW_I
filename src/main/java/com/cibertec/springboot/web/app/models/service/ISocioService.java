@@ -19,4 +19,6 @@ public interface ISocioService {
 	
 	public void delete(int id);
 	
+	public Socio findbyUsuario(String usuario);
+	
 }

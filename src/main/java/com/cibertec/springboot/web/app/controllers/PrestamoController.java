@@ -20,7 +20,8 @@ import com.cibertec.springboot.web.app.models.service.ILibroService;
 import com.cibertec.springboot.web.app.models.service.IUsuarioService;
 
 @Controller
-@SessionAttributes("prestamo")
+@SessionAttributes(names = {"prestamo","libro","usuario"})
+@RequestMapping(value = "/prestamo")
 public class PrestamoController {
 
 	@Autowired
@@ -30,6 +31,23 @@ public class PrestamoController {
 	private ILibroService libroService;	
 	
 	// Confirmación de Prestamos - Controllers
+	
+	@RequestMapping(value = "/realizar/{idlibro}")
+	public String realizar(@PathVariable(value = "idlibro") Long idlibro, Model model) {
+		Libro libro = libroService.findOne(idlibro);
+		model.addAttribute("titulo", "Préstamo de Libro");
+		model.addAttribute("libro", libro);
+		return "prestamo/realizar";
+	}
+	
+	@RequestMapping(value = "/confirmar", method = RequestMethod.POST)
+	public String confirmar(@PathVariable(value = "idlibro") Long idlibro, Model model,
+			RedirectAttributes flash, SessionStatus status, BindingResult result) {
+		Libro libro = libroService.findOne(idlibro);
+		model.addAttribute("titulo", "Préstamo de Libro");
+		model.addAttribute("libro", libro);
+		return "prestamo/realizar";
+	}
 	
 	@RequestMapping(value="/confirma_prestamo/{id}")
 	public String confirmaPrestamo(@PathVariable(value="id") Long id

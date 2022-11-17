@@ -1,23 +1,19 @@
 package com.cibertec.springboot.web.app.controllers;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cibertec.springboot.web.app.models.entity.Empleado;
 import com.cibertec.springboot.web.app.models.entity.Socio;
@@ -27,36 +23,13 @@ import com.cibertec.springboot.web.app.util.paginator.PageRender;
 
 
 @Controller
-@SessionAttributes("usuario")
+@RequestMapping(value = "/usuario")
 public class UsuarioController {
 	
 	@Autowired
+	private HttpSession session;
+	@Autowired
 	private IUsuarioService usuarioService;
-	
-	@GetMapping({"/", "", "/login"})
-	public String login() {		
-		return "login";
-	}
-	
-	@RequestMapping(value="/index")
-	public String index(Model modeloUser, HttpSession session) {
-		modeloUser.addAttribute("titulo", "Bienvenido a Biblos");
-		modeloUser.addAttribute("Usuario", "");		
-		return "index";
-	}
-	
-	@RequestMapping(value="/index", method = RequestMethod.POST)
-	public String index(@RequestParam(name="user", defaultValue = "") String nombre
-			, Model modeloUser, 
-			HttpSession session) {
-		Usuario us = usuarioService.findByNombre(nombre);
-		
-		modeloUser.addAttribute("titulo", "Bienvenido a Biblos, ");
-		
-		session.setAttribute("usuario", us);
-		modeloUser.addAttribute("Usuario", nombre);		
-		return "index";
-	}
 	
 	@RequestMapping(value="/admin/usuarios", method = RequestMethod.GET)
 	public String listadoUsuarios(@RequestParam(name="page", defaultValue = "0") 
@@ -71,34 +44,45 @@ public class UsuarioController {
 		return "listado_usuario";
 	}
 	
-	@RequestMapping(value = "usuario/registro")
-	public String registrar(Model model) {
-		model.addAttribute("titulo","Formulario de Usuario");
-		model.addAttribute("nuevo", new Usuario());
-		return "usuario/registro";
+	@RequestMapping(value = "/cambiarContraseña")
+	public String cambiarContraseña(Model model) {
+		model.addAttribute("titulo", "Cambiar Contraseña");
+		return "usuario/cambiarContraseña";
 	}
 	
-	@RequestMapping(value = "/usuario/guardar", method = RequestMethod.POST)
-	public String guardar(Model model, @Valid @ModelAttribute Usuario usuario, BindingResult result, 
-			SessionStatus status, RedirectAttributes attributes) {
-		if (result.hasErrors()) {
-			model.addAttribute("titulo", "Formulario de Usuario");
-			model.addAttribute("nuevo", usuario);
-			return "usuario/registro";
+	@RequestMapping(value = "/cambiarContraseña", method = RequestMethod.POST)
+	public String cambiarContraseña(Model model, @RequestParam(name = "actual", defaultValue = "") String actual,
+			@RequestParam(name = "nueva", defaultValue = "") String nueva, Authentication authentication) {
+		String rol = ""; Socio socio = null; Empleado empleado = null; Usuario usuario;
+		for (GrantedAuthority t : authentication.getAuthorities())
+			rol = t.getAuthority();
+		if (rol.equals("Socio")) {
+			socio = (Socio) session.getAttribute("login");
+			usuario = socio.getUsuario();
+		}
+		else {
+			empleado = (Empleado) session.getAttribute("login");
+			usuario = empleado.getUsuario();
 		}
 		
-		usuarioService.save(usuario);
-		usuario = usuarioService.findByNombre(usuario.getNombre());
-		
-		if (usuario.getRol().getDescripcion().equals("Cliente")) {
-			Socio socio = (Socio) model.getAttribute("socio");
-			socio.setUsuario(usuario);
+		if (nueva.isBlank()) {
+			model.addAttribute("error", "Debe escribir una contraseña nueva");
 		} else {
-			Empleado empleado = (Empleado) model.getAttribute("empleado");
-			empleado.setUsuario(usuario);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if (encoder.matches(actual, usuario.getContraseña())) {
+				usuario.setContraseña(encoder.encode(nueva));
+				usuarioService.save(usuario);
+				usuario = usuarioService.findByNombre(usuario.getNombre());
+				if (socio != null) {socio.setUsuario(usuario); session.setAttribute("login", socio);}
+				if (empleado != null) {empleado.setUsuario(usuario); session.setAttribute("login", empleado);}
+				model.addAttribute("success", "La contraseña se ha cambiado correctamente");
+			} else {
+				model.addAttribute("error", "La contraseña actual es incorrecta");
+			}
 		}
 		
-		return "usuario/registro";
+		model.addAttribute("titulo", "Cambiar Contraseña");
+		return "usuario/cambiarContraseña";
 	}
 
 }

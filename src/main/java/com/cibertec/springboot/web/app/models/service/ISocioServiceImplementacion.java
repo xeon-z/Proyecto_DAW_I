@@ -41,4 +41,9 @@ public class ISocioServiceImplementacion implements ISocioService {
 		socioRepository.deleteById(id);
 	}
 
+	@Override
+	public Socio findbyUsuario(String usuario) {
+		return socioRepository.findByUsuario(usuario);
+	}
+
 }

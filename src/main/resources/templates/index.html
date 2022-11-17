@@ -4,7 +4,11 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>			
 	<div class="container">
-		<h1 align="center" class=" border border-danger border-top-0 " th:text="${titulo} + ${Usuario}"></h1>		
+		<h1 align="center" class=" border border-danger border-top-0 " th:text="${titulo} + ', ' + ${session.login.nombre}"></h1>
+		
+		<div th:replace="layout/layout :: msg-success"></div>
+		<div th:replace="layout/layout :: msg-danger"></div>
+				
 		<table class="table table-striped">
 			<thead>
 				<tr align="center">

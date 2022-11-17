@@ -42,6 +42,10 @@
 					<td th:text="${e.correo}"></td>
 					<td th:text="${e.usuario==null?'-':e.usuario.nombre}"></td>
 					<td>
+						<a class="btn btn-warning btn-sm"
+							th:href="@{/empleado/editar/} + ${e.id}" 
+							th:text="'Editar'">
+						</a>
 						<a class="btn btn-danger btn-sm"
 							th:href="@{/empleado/eliminar/} + ${e.id}" 
 							th:text="'Eliminar'" onclick="return confirm('¿Seguro que desea eliminar este registro?')">
