@@ -1,7 +1,7 @@
 package com.cibertec.springboot.web.app.models.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,9 +36,6 @@ public class Prestamo implements Serializable {
 	private Date fecLimite;
 	@Column(name = "fec_devol")
 	private Date fecDevolucion;
-	@Column(name = "cantidad")
-	@NotNull(message = "Campo obligatorio")
-	private int cantidad;
 	@Column(name = "estado")
 	private String estado;
 	@Column(name = "mora")
@@ -90,14 +87,6 @@ public class Prestamo implements Serializable {
 
 	public void setFecDevolucion(Date fecDevolucion) {
 		this.fecDevolucion = fecDevolucion;
-	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
 	}
 
 	public String getEstado() {

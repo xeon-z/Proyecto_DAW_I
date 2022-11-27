@@ -37,7 +37,7 @@
 					<td th:text="${libro.stock}"></td>					 
 					<td>
 						<a class="btn btn-success btn-sm" sec:authorize="hasAnyAuthority('Socio')"
-							th:href="@{/prestamo/realizar/} + ${libro.id}"
+							th:href="@{/prestamo/solicitar/} + ${libro.id}"
 							th:text="'Solicitar'">
 						</a>
 						<a class="btn btn-warning btn-sm" sec:authorize="hasAnyAuthority('Administrador','Mantenimiento')"

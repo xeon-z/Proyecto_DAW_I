@@ -17,4 +17,8 @@ public interface IPrestamoService {
 	
 	public Prestamo findOne(int id);
 	
+	public int devolucionesPendientes(int id);
+	
+	public int morasPendientes(int id);
+	
 }
