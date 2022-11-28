@@ -17,4 +17,10 @@ public interface IPagoService {
 	
 	public Pago findOne(int id);
 	
+	public List<Pago> findByIdSocio(int idSocio);
+	
+	public List<Pago> findByDate(String fecha);
+	
+	public List<Pago> findByDateAndSocio(String fecha, int idSocio);
+	
 }

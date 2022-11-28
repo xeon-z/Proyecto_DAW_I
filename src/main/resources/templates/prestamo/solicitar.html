@@ -37,10 +37,9 @@
 								<img class="rounded mx-auto d-block"
 								style="width: 250px;" th:src="@{'/uploads/' + ${libro.foto}}"/>
 							</div>
-						</div>
-						
-						<div class="mb-3 py-2 d-flex justify-content-around">
-							<a th:href="@{/libro/listado}" class="btn btn-info">Volver</a>
+						</div>						
+						<div class="mb-3 d-flex justify-content-around">							
+							<a th:href="@{/prestamo/listado}" class="btn btn-info">Volver</a>
 							<button type="submit" class="btn btn-success">Confirmar Préstamo</button>
 						</div>
 					</form>
