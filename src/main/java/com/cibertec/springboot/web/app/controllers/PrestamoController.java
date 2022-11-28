@@ -71,6 +71,7 @@ public class PrestamoController {
 		} catch (Exception e) {
 			attributes.addFlashAttribute("error", "No se pudo realizar el préstamo, asegúrese que haya stock suficiente.");
 		}
+		
 		return "redirect:/libro/listado";
 	}
 	
