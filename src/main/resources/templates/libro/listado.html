@@ -19,6 +19,7 @@
 			<thead class="table-primary">
 				<tr>
 					<th>Id</th>
+					<th>Foto</th>
 					<th>Titulo</th>
 					<th>Autor</th>
 					<th>Año</th>
@@ -30,6 +31,11 @@
 			<tbody>
 				<tr th:each="libro: ${libros}">
 					<td th:text="${libro.id}"></td>
+					<td>
+						<img class="img-thumbnail rounded float-left"
+							style="width: 50px;" th:src="@{'/uploads/' + ${libro.foto}}"
+							/>
+					</td>
 					<td th:text="${libro.titulo}"></td>
 					<td th:text="${libro.autor}"></td>
 					<td th:text="${libro.anio}"></td>

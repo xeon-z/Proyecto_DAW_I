@@ -40,6 +40,7 @@ public class Libro implements Serializable {
 	@Min(value = 0, message = "El valor mínimo es 0")
 	@Column(name="stk_lib")
 	private int stock;
+	private String foto;
 
 	public Long getId() {
 		return id;
@@ -79,5 +80,12 @@ public class Libro implements Serializable {
 		this.stock = stock;
 	}
 	
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	private static final long serialVersionUID = 1L;
 }

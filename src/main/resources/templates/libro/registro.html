@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/layout :: head"></head>
 <body>
-
 	<header th:replace="layout/layout :: header"></header>
 	
 	<div class="container mt-3">
@@ -11,7 +10,7 @@
 			<div class="card text-bg-light">
 				<div class="card-header text-bg-secondary h4" th:text="${titulo}"></div>
 				<div class="card-body">
-					<form th:action="@{/libro/guardar}" th:object="${libro}" method="post">
+					<form th:action="@{/libro/guardar}" th:object="${libro}" method="post" enctype="multipart/form-data">
 						<div class="mb-3">
 							<label for="titulo" class="form-label">Título</label>
 							<input type="text" class="form-control" th:field="*{titulo}">
@@ -41,6 +40,12 @@
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></div>
 						</div>
 						<div class="mb-3">
+							<label for="file" class="form-label">Foto</label>
+							<div class="col-sm-6">
+								<input type="file" name="file" class="form-control" />
+							</div>
+						</div>
+						<div class="mb-3">
 							<a th:href="@{/libro/listado}" class="btn btn-info">Volver</a>
 							<button type="submit" class="btn btn-success">Guardar</button>
 						</div>
@@ -48,11 +53,8 @@
 				</div>
 			</div>
 		</div>
-		</div>
-		
-	</div>
-	
+		</div>		
+	</div>	
 	<footer th:replace="layout/layout :: footer"></footer>
-
 </body>
 </html>
