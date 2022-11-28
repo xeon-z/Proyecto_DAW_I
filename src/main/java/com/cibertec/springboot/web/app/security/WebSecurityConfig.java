@@ -31,7 +31,7 @@ public class WebSecurityConfig {
 		.antMatchers("/css/**","/img/**","/js/**","/layout/**").permitAll()
 		.antMatchers("/socio/registroDatos","/socio/registroUsuario").permitAll()
 		.antMatchers("/libro/registro","/libro/editar/**","/libro/eliminar/**").hasAnyAuthority("Administrador","Mantenimiento")
-		.antMatchers("/prestamo/solicitar/**","/prestamo/confirmar").hasAnyAuthority("Socio")
+		.antMatchers("/prestamo/solicitar/**","/prestamo/confirmar","/prestamo/devolver/**","/prestamo/devolver").hasAnyAuthority("Socio")
 		.anyRequest().authenticated()
 		.and()
 		.formLogin().loginPage("/login").permitAll()

@@ -35,7 +35,7 @@ public class PrestamoController {
 	// Confirmación de Prestamos - Controllers
 	
 	@RequestMapping(value = "/solicitar/{idlibro}")
-	public String solicitar(@PathVariable(value = "idlibro") Long idlibro, Model model) {
+	public String solicitarPrestamo(@PathVariable(value = "idlibro") Long idlibro, Model model) {
 		Libro libro = libroService.findOne(idlibro);
 		model.addAttribute("titulo", "Préstamo de Libro");
 		model.addAttribute("libro", libro);
@@ -44,7 +44,7 @@ public class PrestamoController {
 	}
 	
 	@RequestMapping(value = "/confirmar", method = RequestMethod.POST)
-	public String confirmar(Model model, RedirectAttributes attributes, SessionStatus status) {
+	public String confirmarPrestamo(Model model, RedirectAttributes attributes, SessionStatus status) {
 		Libro libro = (Libro) model.getAttribute("libro");
 		Socio socio = (Socio) session.getAttribute("login");
 		
@@ -71,6 +71,32 @@ public class PrestamoController {
 		} catch (Exception e) {
 			attributes.addFlashAttribute("error", "No se pudo realizar el préstamo, asegúrese que haya stock suficiente.");
 		}
+		return "redirect:/libro/listado";
+	}
+	
+	@RequestMapping(value = "/devolver/{idPrestamo}")
+	public String solicitarDevolucion(@PathVariable(value = "idPrestamo") int idPrestamo, Model model) {
+		Prestamo prestamo = prestamoService.findOne(idPrestamo);
+		model.addAttribute("titulo", "Devolución de libro");
+		model.addAttribute("prestamo", prestamo);
+		
+		return "prestamo/devolver";
+	}
+	
+	@RequestMapping(value = "/devolver", method = RequestMethod.POST)
+	public String confirmarDevolucion(Model model, RedirectAttributes attributes, SessionStatus status) {
+		Prestamo prestamo = (Prestamo) model.getAttribute("prestamo");
+		
+		prestamo.setFecDevolucion(new Date());
+		prestamo.setEstado("Devuelto");
+		
+		if (prestamo.getFecDevolucion().getTime() >= prestamo.getFecLimite().getTime())
+			prestamo.setMora("Si");
+		
+		prestamoService.save(prestamo);
+		status.setComplete();
+		attributes.addFlashAttribute("success", "Devolución realizada correctamente.");
+
 		return "redirect:/libro/listado";
 	}
 	

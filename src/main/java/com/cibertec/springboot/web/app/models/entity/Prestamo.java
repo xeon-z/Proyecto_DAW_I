@@ -11,7 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "prestamo")
@@ -21,23 +25,36 @@ public class Prestamo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pres")
 	private int id;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_soc")
 	@NotNull(message = "Campo obligatorio")
 	private Socio socio;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_lib")
 	@NotNull(message = "Campo obligatorio")
 	private Libro libro;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fec_pres")
 	@NotNull(message = "Campo obligatorio")
 	private Date fecPrestamo;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fec_limit")
 	private Date fecLimite;
+	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "fec_devol")
 	private Date fecDevolucion;
+	
 	@Column(name = "estado")
 	private String estado;
+	
 	@Column(name = "mora")
 	private String mora;
 

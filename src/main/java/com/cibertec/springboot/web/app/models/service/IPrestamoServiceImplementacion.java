@@ -36,9 +36,15 @@ public class IPrestamoServiceImplementacion implements IPrestamoService {
 	@Transactional
 	public void save(Prestamo prestamo) {
 		prestamoRepository.save(prestamo);
-		Libro libro = prestamo.getLibro();
-		libro.setStock(libro.getStock()-1);
-		libroRepository.save(libro);
+		if (prestamo.getId() == 0) {
+			Libro libro = prestamo.getLibro();
+			libro.setStock(libro.getStock()-1);
+			libroRepository.save(libro);			
+		} else {
+			Libro libro = prestamo.getLibro();
+			libro.setStock(libro.getStock()+1);
+			libroRepository.save(libro);
+		}
 	}
 
 	@Override
