@@ -52,7 +52,7 @@
 							<select class="form-select" th:field="*{usuario}">
 								<option value="0">-- Seleccione --</option>
 								<option value="1">Administrador</option>
-								<option value="2">Empleado</option>
+								<option value="2">Mantenimiento</option>
 							</select>
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
 						</div>

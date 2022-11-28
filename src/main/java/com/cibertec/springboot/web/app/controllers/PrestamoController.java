@@ -105,7 +105,7 @@ public class PrestamoController {
 		status.setComplete();
 		attributes.addFlashAttribute("success", "Devolución realizada correctamente.");
 
-		return "redirect:/libro/listado";
+		return "redirect:/prestamo/listado";
 	}
 	
 	@RequestMapping(value="/listado", method = RequestMethod.GET)

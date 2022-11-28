@@ -31,7 +31,8 @@
 					<th>Fecha Limite</th>
 					<th>Fecha de devolución</th>
 					<th>Estado</th>	
-					<th>Mora</th>						
+					<th>Mora</th>
+					<th sec:authorize="hasAnyAuthority('Socio')">Acciones</th>				
 				</tr>
 			</thead>
 			<tbody>
@@ -42,8 +43,18 @@
 					<td th:text="${prestamo.fecPrestamo}"></td>
 					<td th:text="${prestamo.fecLimite}"></td>
 					<td th:text="${prestamo.fecDevolucion}"></td>	
-					<td th:text="${prestamo.estado}"></td>	
-					<td th:text="${prestamo.mora}"></td>	
+					<td th:text="${prestamo.estado}"></td>
+					<td th:text="${prestamo.mora}"></td>
+					<td sec:authorize="hasAnyAuthority('Socio')">
+						<a class="btn btn-warning btn-sm"
+							th:href="@{/prestamo/devolver/} + ${prestamo.id}"
+							th:text="'Devolver'">
+						</a>
+						<a class="btn btn-danger btn-sm"
+							th:href="@{/pago/realizar/} + ${prestamo.id}"
+							th:text="'Pagar Mora'">
+						</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

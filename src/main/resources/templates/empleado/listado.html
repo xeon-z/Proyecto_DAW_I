@@ -27,6 +27,7 @@
 					<th>Sueldo</th>
 					<th>Correo</th>
 					<th>Usuario</th>
+					<th>Rol</th>
 					<th>Acciones</th>					
 				</tr>
 			</thead>
@@ -40,7 +41,8 @@
 					<td th:text="${e.cargo}"></td>
 					<td th:text="${e.sueldo}"></td>
 					<td th:text="${e.correo}"></td>
-					<td th:text="${e.usuario==null?'-':e.usuario.nombre}"></td>
+					<td th:text="${e.usuario.nombre}"></td>
+					<td th:text="${e.usuario.rol.descripcion}"></td>
 					<td>
 						<a class="btn btn-warning btn-sm"
 							th:href="@{/empleado/editar/} + ${e.id}" 

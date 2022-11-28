@@ -61,7 +61,7 @@ public class PagoController {
 		status.setComplete();
 		attributes.addFlashAttribute("success", "Pago de mora realizado correctamente.");
 
-		return "redirect:/libro/listado";
+		return "redirect:/prestamo/listado";
 	}
 	
 	@RequestMapping(value="/listado", method = RequestMethod.GET)

@@ -32,7 +32,7 @@
 					<th>Fecha de devolución</th>
 					<th>Estado</th>
 					<th>Mora</th>
-					<th>Acciones</th>			
+					<th sec:authorize="hasAnyAuthority('Socio')">Acciones</th>			
 				</tr>
 			</thead>
 			<tbody>
@@ -45,22 +45,14 @@
 					<td th:text="${prestamo.fecDevolucion}"></td>	
 					<td th:text="${prestamo.estado}"></td>	
 					<td th:text="${prestamo.mora}"></td>
-					<td>
-						<a class="btn btn-success btn-sm" sec:authorize="hasAnyAuthority('Socio')"
+					<td sec:authorize="hasAnyAuthority('Socio')">
+						<a class="btn btn-warning btn-sm" th:if="${prestamo.estado.equals('Pendiente')}"
 							th:href="@{/prestamo/devolver/} + ${prestamo.id}"
 							th:text="'Devolver'">
 						</a>
-						<a class="btn btn-success btn-sm" sec:authorize="hasAnyAuthority('Socio')"
+						<a class="btn btn-danger btn-sm" th:if="${prestamo.mora.equals('Si')}"
 							th:href="@{/pago/realizar/} + ${prestamo.id}"
 							th:text="'Pagar Mora'">
-						</a>
-						<a class="btn btn-warning btn-sm" sec:authorize="hasAnyAuthority('Administrador','Mantenimiento')"
-							th:href="@{/libro/editar/} + ${libro.id}" 
-							th:text="'Editar'">
-						</a>
-						<a class="btn btn-danger btn-sm" sec:authorize="hasAnyAuthority('Administrador','Mantenimiento')"
-							th:href="@{/libro/eliminar/} + ${libro.id}" 
-							th:text="'Eliminar'" onclick="return confirm('¿Seguro que desea eliminar este registro?')">
 						</a>
 					</td>
 				</tr>
