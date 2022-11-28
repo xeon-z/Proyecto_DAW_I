@@ -5,11 +5,17 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +25,7 @@ import com.cibertec.springboot.web.app.models.entity.Prestamo;
 import com.cibertec.springboot.web.app.models.entity.Socio;
 import com.cibertec.springboot.web.app.models.service.ILibroService;
 import com.cibertec.springboot.web.app.models.service.IPrestamoService;
+import com.cibertec.springboot.web.app.util.paginator.PageRender;
 
 @Controller
 @SessionAttributes(names = {"prestamo","libro","usuario"})
@@ -99,6 +106,49 @@ public class PrestamoController {
 		attributes.addFlashAttribute("success", "Devolución realizada correctamente.");
 
 		return "redirect:/libro/listado";
+	}
+	
+	@RequestMapping(value="/listado", method = RequestMethod.GET)
+	public String listadoPrestamo(@RequestParam(name="page", defaultValue = "0") 
+	int page, Model model, String nueva, Authentication authentication) {
+		String rol = ""; Socio socio = null;
+		for (GrantedAuthority t : authentication.getAuthorities())
+			rol = t.getAuthority();
+		if (rol.equals("Socio")) {
+			socio = (Socio) session.getAttribute("login");
+			model.addAttribute("prestamos", prestamoService.findByIdSocio(socio.getId()));
+			model.addAttribute("titulo", "Mis Préstamos");
+		}
+		else {
+			Pageable pageRequest = PageRequest.of(page, 5);
+			Page<Prestamo> prestamos = prestamoService.findAll(pageRequest);
+			PageRender<Prestamo> pageRender = new PageRender<>("/prestamo/listado", prestamos);
+			model.addAttribute("prestamos", prestamos);
+			model.addAttribute("titulo", "Listado de Préstamos");
+			model.addAttribute("page", pageRender);
+		}
+		
+		return "prestamo/listado";
+	}
+	
+	@RequestMapping(value="/busqueda", method = RequestMethod.GET)
+	public String buscarPorFecha(@RequestParam(name="fecha", defaultValue = "false") String fecha, Model model, Authentication authentication) {
+		if (fecha != "") {
+			String rol = ""; Socio socio = null;
+			for (GrantedAuthority t : authentication.getAuthorities())
+				rol = t.getAuthority();
+			if (rol.equals("Socio")) {
+				socio = (Socio) session.getAttribute("login");
+				model.addAttribute("prestamos", prestamoService.findByDateAndSocio(fecha, socio.getId()));
+				model.addAttribute("titulo", "Mis Préstamos");
+			}
+			else {
+				model.addAttribute("titulo", "Listado de Préstamos");
+				model.addAttribute("prestamos", prestamoService.findByDate(fecha));	
+			}
+			
+		}
+		return "prestamo/busqueda";
 	}
 	
 }

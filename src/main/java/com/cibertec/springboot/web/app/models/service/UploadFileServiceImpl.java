@@ -69,9 +69,4 @@ public class UploadFileServiceImpl implements IUploadFileService {
 		FileSystemUtils.deleteRecursively(Paths.get(UPLOADS_FOLDER).toFile());
 	}
 
-	
-	@Override
-	public void init() throws IOException {
-		Files.createDirectory(Paths.get(UPLOADS_FOLDER));		
-	}	
 }

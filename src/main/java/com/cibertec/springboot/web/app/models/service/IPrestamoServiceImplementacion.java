@@ -61,5 +61,21 @@ public class IPrestamoServiceImplementacion implements IPrestamoService {
 	public int morasPendientes(int id) {
 		return prestamoRepository.morasPendientes(id);
 	}
+	
+	@Override
+	public List<Prestamo> findByIdSocio(int idSocio) {
+		return prestamoRepository.findByIdSocio(idSocio);
+	}
+
+	@Override
+	public List<Prestamo> findByDateAndSocio(String date, int idSocio) {
+		return prestamoRepository.findByDateAndSocio(date, idSocio);
+
+	}
+
+	@Override
+	public List<Prestamo> findByDate(String date) {
+		return prestamoRepository.findByDate(date);
+	}
 
 }

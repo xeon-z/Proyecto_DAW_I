@@ -32,8 +32,12 @@
 							<input type="date" class="form-control" th:field="*{fecDevolucion}" disabled>
 						</div>
 						<div class="mb-3">
+							<label for="deuda" class="form-label">Pago a realizar</label>
+							<input type="text" class="form-control" name="deuda" th:value="'S/ 5.00'" disabled>
+						</div>
+						<div class="mb-3">
 							<a th:href="@{/prestamo/listado}" class="btn btn-info">Volver</a>
-							<button type="submit" class="btn btn-success">Confirmar Devolución</button>
+							<button type="submit" class="btn btn-success">Confirmar Pago</button>
 						</div>
 					</form>
 				</div>

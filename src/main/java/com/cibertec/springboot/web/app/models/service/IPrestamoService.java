@@ -21,4 +21,10 @@ public interface IPrestamoService {
 	
 	public int morasPendientes(int id);
 	
+	public List<Prestamo> findByIdSocio(int idSocio);
+	
+	public List<Prestamo> findByDateAndSocio(String date, int idSocio);
+	
+	public List<Prestamo> findByDate(String date);
+	
 }
