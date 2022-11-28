@@ -35,7 +35,6 @@ public class IPrestamoServiceImplementacion implements IPrestamoService {
 	@Override
 	@Transactional
 	public void save(Prestamo prestamo) {
-		prestamoRepository.save(prestamo);
 		if (prestamo.getId() == 0) {
 			Libro libro = prestamo.getLibro();
 			libro.setStock(libro.getStock()-1);
@@ -45,6 +44,7 @@ public class IPrestamoServiceImplementacion implements IPrestamoService {
 			libro.setStock(libro.getStock()+1);
 			libroRepository.save(libro);
 		}
+		prestamoRepository.save(prestamo);
 	}
 
 	@Override

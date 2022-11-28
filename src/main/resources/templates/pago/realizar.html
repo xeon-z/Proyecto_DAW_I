@@ -10,7 +10,7 @@
 			<div class="card text-bg-light">
 				<div class="card-header text-bg-secondary h4" th:text="${titulo}"></div>
 				<div class="card-body">
-					<form th:action="@{/prestamo/devolver}" th:object="${prestamo}" method="post">
+					<form th:action="@{/pago/confirmar}" th:object="${prestamo}" method="post">
 						<div class="mb-3">
 							<label for="socio" class="form-label">Socio</label>
 							<input type="text" class="form-control" name="socio" th:value="*{socio.nombre} + ' ' + *{socio.apellido}" disabled>
@@ -26,6 +26,10 @@
 						<div class="mb-3">
 							<label for="fecLimite" class="form-label">Fecha Límite</label>
 							<input type="date" class="form-control" th:field="*{fecLimite}" disabled>
+						</div>
+						<div class="mb-3">
+							<label for="fecDevolucion" class="form-label">Fecha de Devolución</label>
+							<input type="date" class="form-control" th:field="*{fecDevolucion}" disabled>
 						</div>
 						<div class="mb-3">
 							<a th:href="@{/prestamo/listado}" class="btn btn-info">Volver</a>
