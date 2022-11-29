@@ -4,25 +4,11 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>			
 	<div class="container">
-		<h1 align="center" class=" border border-danger border-top-0 " th:text="${titulo} + ', ' + ${session.login.nombre}"></h1>
+		<h1 align="center" class="mt-3" th:text="${titulo} + ', ' + ${session.login.nombre}"></h1>
 		
 		<div th:replace="layout/layout :: msg-success"></div>
 		<div th:replace="layout/layout :: msg-danger"></div>
-				
-		<table class="table table-striped">
-			<thead>
-				<tr align="center">
-					<th>Mis Préstamos</th>
-					<th>Listado de Libros</th>					
-				</tr>
-			</thead>
-			<tbody>
-				<tr align="center">
-					<td class="col-sm"><a class="btn btn-success col-sm-5" th:text="'Ver'"></a></td>
-					<td class="col-sm"><a class="btn btn-success col-sm-5" th:text="'Buscar'" th:href="@{/libro/listado}"></a></td>					
-				</tr>
-			</tbody>
-		</table>		
+						
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
